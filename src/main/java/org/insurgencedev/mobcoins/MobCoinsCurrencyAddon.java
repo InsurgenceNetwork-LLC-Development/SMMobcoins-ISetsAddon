@@ -9,15 +9,9 @@ import org.insurgencedev.insurgencesets.api.addon.InsurgenceSetsAddon;
 public class MobCoinsCurrencyAddon extends InsurgenceSetsAddon {
 
     @Override
-    public void onAddonStart() {
-        if (isDependentEnabled()) {
-            registerEvent(new MobCoinReceiveListener());
-        }
-    }
-
-    @Override
     public void onAddonReloadablesStart() {
         if (isDependentEnabled()) {
+            registerEvent(new MobCoinReceiveListener());
             ISetsAPI.getCurrencyManager().registerCurrency(new MobCoinCurrency());
         }
     }
