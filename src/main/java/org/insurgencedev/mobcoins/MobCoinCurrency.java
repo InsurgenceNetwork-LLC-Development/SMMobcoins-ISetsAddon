@@ -4,7 +4,7 @@ import lombok.NonNull;
 import me.swanis.mobcoins.MobCoinsAPI;
 import org.bukkit.entity.Player;
 import org.insurgencedev.insurgencesets.api.ISetsAPI;
-import org.insurgencedev.insurgencesets.api.currency.Currency;
+import org.insurgencedev.insurgencesets.models.currency.Currency;
 import org.insurgencedev.insurgencesets.models.currency.TransactionTypes;
 
 public class MobCoinCurrency extends Currency {
@@ -21,7 +21,7 @@ public class MobCoinCurrency extends Currency {
     @NonNull
     @Override
     public TransactionTypes handleDeposit(@NonNull Player player, @NonNull Object o, String s) {
-        if (isInvalidSet(s)) {
+        if (!ISetsAPI.getArmorSetManager().isArmorSetValid(s)) {
             return TransactionTypes.FAIL;
         }
 
@@ -32,7 +32,7 @@ public class MobCoinCurrency extends Currency {
     @NonNull
     @Override
     public TransactionTypes handleTransaction(@NonNull Player player, @NonNull Object o, String s) {
-        if (isInvalidSet(s)) {
+        if (!ISetsAPI.getArmorSetManager().isArmorSetValid(s)) {
             return TransactionTypes.FAIL;
         }
 
@@ -43,9 +43,5 @@ public class MobCoinCurrency extends Currency {
 
         MobCoinsAPI.getProfileManager().getProfile(player).setMobCoins(MobCoinsAPI.getProfileManager().getProfile(player).getMobCoins() - ((Number) o).longValue());
         return TransactionTypes.SUCCESS;
-    }
-
-    private boolean isInvalidSet(String armorSet) {
-        return armorSet == null || ISetsAPI.getArmorSetManager().findArmorSet(armorSet) == null;
     }
 }
