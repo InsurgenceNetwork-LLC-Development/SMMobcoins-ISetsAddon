@@ -10,7 +10,7 @@ import org.insurgencedev.insurgencesets.models.currency.TransactionTypes;
 public class MobCoinCurrency extends Currency {
 
     public MobCoinCurrency() {
-        super("MobCoins", "SM");
+        super("Mobcoins", "SM");
     }
 
     @Override
